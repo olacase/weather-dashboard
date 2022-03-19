@@ -1,0 +1,47 @@
+.main {
+    display: flex;
+  }
+  .search {
+    height: 600px;
+    width: 300px;
+    background-color: pink;
+  }
+  .forecast {
+    height: 600px;
+    width: 1000px;
+  }
+  .today {
+    background-color: green;
+    height: 300px;
+  }
+  .weekly {
+    height: 300px;
+    background-color: purple;
+    display: flex;
+    justify-content: space-around;
+  }
+  .form-input {
+    margin: 50px;
+    text-align: center;
+  }
+  .search-button {
+    background-color: red;
+    height: 20px;
+    width: 200px;
+    margin-left:  43px;
+  }
+
+
+
+
+
+
+
+
+
+
+
+Send a message to Michelle Jordan2
+
+
+
