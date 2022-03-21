@@ -6,6 +6,39 @@ var searchInput = document.querySelector('#search-input');
 var todayContainer = document.querySelector('#today');
 var forecastContainer = document.querySelector('#forecast');
 var searchHistoryContainer = document.querySelector('#history');
+
+
+function renderSearchHistory(){
+    searchHistoryContainer.innerHTML="";
+    for(var i= searchHistory.length-1; i>=0; i--){
+        var button= document.createElement("button")
+        button.setAttribute("type", "button")
+        button.setAttribute("aria-controls", "todays forecast")
+        button.classList.add("history-button", "button-history")
+        button.setAttribute("dataSearch", searchHistory[i])
+        button.textContent= searchHistory[i]
+        searchHistoryContainer.append(button)
+
+    }
+console.log(button)
+}
+
+function appendToHistory(search){
+    if(searchHistory.indexOf(search)!== -1){
+        return
+    }
+    searchHistory.push(search)
+    localStorage.setItem("search-history", JSON.stringify(searchHistory))
+    renderSearchHistory()
+
+
+};
+function initSearchHistory(){
+    var storedHistory = localStorage.getItem("search-history")
+    if (storedHistory){
+        searchHistory= JSON.parse(storedHistory)
+    }
+}
 dayjs.extend(window.dayjs_plugin_utc);
 dayjs.extend(window.dayjs_plugin_timezone);
 function fetchWeather(location) {
@@ -34,7 +67,7 @@ function fetchCoords(search) {
         if(!data[0]) {
             alert('Location not found');
         } else {
-            // appendToHistory(search);
+            appendToHistory(search);
             fetchWeather(data[0]);
         }
         console.log(data);
@@ -79,6 +112,7 @@ function renderCurrentWeather(city, weather) {
     todayContainer.innerHTML = '';
     todayContainer.append(card);
 }
+
 function renderForecastCard(forecast) {
     var unixTs = forecast.dt;
     var tempF = forecast.temp.day;
@@ -108,6 +142,7 @@ function renderForecastCard(forecast) {
     humidityEl.textContent = `Humidity: ${humidity}`;
     forecastContainer.append(col);
 }
+
 function renderForecast(dailyForecast) {
     var startDt = dayjs().add(1, 'day').startOf('day').unix();
     var endDt = dayjs().add(6, 'day').startOf('day').unix();
@@ -124,6 +159,18 @@ function renderForecast(dailyForecast) {
         }
     }
 }
+function handleHistory(event){
+    if(!event.target.matches("button-history")){
+        return
+    }
+    var button=event.target
+    var search = button.getAttribute("data-search")
+    fetchCoords(search)
+}
+initSearchHistory()
+searchForm.addEventListener("submit", handleSearchFormSubmit)
+searchHistoryContainer.addEventListener("click", handleHistory)
+// localStorage.setItem("data", data);
 function renderItems(city, data) {
     renderCurrentWeather(city, data.current);
     renderForecast(data.daily);
