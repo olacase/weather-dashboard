@@ -25,19 +25,19 @@
   .search {
     height: 600px;
     width: 300px;
-    background-color: pink;
+    background-color: rgb(236, 235, 238);
   }
   .forecast {
     height: 600px;
     width: 1000px;
   }
   .today {
-    background-color: green;
+    background-color: rgb(197, 210, 211);
     height: 300px;
   }
   .weekly {
     height: 300px;
-    background-color: purple;
+    background-color: rgb(194, 180, 194);
     display: flex;
     justify-content: space-around;
   }
@@ -46,7 +46,7 @@
     text-align: center;
   }
   .search-button {
-    background-color: red;
+    background-color: rgb(23, 4, 107);
     height: 20px;
     width: 200px;
     margin-left:  43px;
